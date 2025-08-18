@@ -1,26 +1,27 @@
-# Chai and Backend - A Video Platform API
+# Chai & Backend - A Full-Stack Video Platform API
 
-A fully-featured backend service for a YouTube-like platform, providing RESTful APIs for user management, video uploads, and subscriptions. This project was built to demonstrate a modern backend architecture using Node.js, Express, and MongoDB.
+![NodeJS](https://img.shields.io/badge/Node.js-18.x-green.svg) ![Express.js](https://img.shields.io/badge/Express.js-5.x-blue.svg) ![MongoDB](https://img.shields.io/badge/MongoDB-6.x-green.svg) ![JWT](https://img.shields.io/badge/Auth-JWT-orange.svg)
 
-![NodeJS](https://img.shields.io/badge/Node.js-18.x-green.svg) ![Express.js](https://img.shields.io/badge/Express.js-4.x-blue.svg) ![MongoDB](https://img.shields.io/badge/MongoDB-6.x-green.svg) ![JWT](https://img.shields.io/badge/Auth-JWT-orange.svg)
+A complete, production-ready backend service for a modern video-sharing platform, similar to YouTube. This project provides a robust and secure RESTful API for user management, authentication, and channel subscriptions.
 
-**[Live Demo Link (if available)](http://your-live-api-link.com)**
+**Live Demo:** [https://chai-backend-1-etao.onrender.com](https://chai-backend-1-etao.onrender.com)
 
 ## Key Features
 
-* **JWT Authentication:** Secure user registration and login with access and refresh tokens.
-* **File Uploads:** Handles multipart/form-data for uploading user avatars, cover images, and video files using `multer`.
-* **Cloud Integration:** Seamlessly uploads media files to Cloudinary for scalable storage.
-* **MongoDB Aggregation Pipelines:** Complex queries for user channel profiles and subscription data.
-* **Standardized API Responses:** Consistent and predictable API response structure (`ApiResponse`) and error handling (`ApiError`).
+* **Secure JWT Authentication:** Implements a full authentication system using JSON Web Tokens (JWT) with both access and refresh tokens for enhanced security.
+* **Cloud Media Management:** Integrates with **Cloudinary** for scalable, cloud-based storage and management of user avatars and cover images.
+* **Robust File Handling:** Uses **Multer** to handle `multipart/form-data`, allowing for efficient and secure file uploads.
+* **Advanced Database Queries:** Leverages **MongoDB Aggregation Pipelines** for complex data retrieval, such as fetching detailed user channel profiles with subscriber counts.
+* **Secure Password Management:** Uses **bcrypt** to hash and salt user passwords, ensuring they are never stored in plain text.
+* **Standardized API Responses:** Employs custom `ApiResponse` and `ApiError` classes to ensure consistent and predictable API responses and error handling.
 
 ## Tech Stack
 
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB with Mongoose
-* **Authentication:** JWT (JSON Web Tokens), bcrypt
-* **File Handling:** Multer, Cloudinary for cloud storage
-* **Development:** Nodemon, Prettier
+* **Authentication:** JWT (jsonwebtoken), bcrypt
+* **File Handling:** Multer, Cloudinary
+* **Development:** Nodemon for hot-reloading, Prettier for code formatting.
 
 ## Getting Started
 
@@ -33,17 +34,18 @@ A fully-featured backend service for a YouTube-like platform, providing RESTful 
 
 ### Installation
 
-1.  Clone the repository:
+1.  **Clone the repository:**
     ```bash
-    git clone [https://your-repository-url.com/](https://your-repository-url.com/)
+    git clone <your-repository-url>
     ```
-2.  Install NPM packages:
+2.  **Install NPM packages:**
     ```bash
     npm install
     ```
-3.  Create a `.env` file in the root directory and add the necessary environment variables:
+3.  **Create a `.env` file** in the root directory and add the following environment variables:
     ```env
     MONGODB_URI=<your_mongodb_uri>
+    DB_NAME=videotube
     CORS_ORIGIN=*
     ACCESS_TOKEN_SECRET=<your_access_token_secret>
     ACCESS_TOKEN_EXPIRY=1d
@@ -53,28 +55,26 @@ A fully-featured backend service for a YouTube-like platform, providing RESTful 
     CLOUDINARY_API_KEY=<your_cloudinary_api_key>
     CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
     ```
-4.  Start the development server:
+4.  **Start the development server:**
     ```bash
     npm run dev
     ```
 
 ## API Endpoints
 
-Here are some of the key API endpoints available.
+The API is versioned under the `/api/v1` prefix.
 
-### User Routes
+### User & Authentication Routes
 
 * `POST /api/v1/users/register` - Register a new user.
-    * **Body (multipart/form-data):** `username`, `email`, `password`, `fullName`, `avatar` (file), `coverImage` (file)
+    * **Body (multipart/form-data):** `username`, `email`, `password`, `fullName`, `avatar` (file), `coverImage` (file, optional)
 * `POST /api/v1/users/login` - Log in a user.
     * **Body (json):** `email` or `username`, `password`
-* `POST /api/v1/users/logout` - Log out the currently authenticated user (requires JWT token).
-* `GET /api/v1/users/current-user` - Get details of the currently logged-in user (requires JWT token).
+* `POST /api/v1/users/logout` - Log out the currently authenticated user.
+    * **Authorization:** Bearer Token (access token required)
+* `POST /api/v1/users/refresh-token` - Request a new access token using a refresh token.
 
-## Project Challenges & Key Learnings
+### Channel Routes
 
-Building this project involved several challenges and learning opportunities:
-
-* **Authentication Flow:** Implementing a secure authentication system with both access and refresh tokens was a key challenge. This involved understanding JWT best practices, token expiry, and secure cookie storage.
-* **Complex Database Queries:** Designing efficient MongoDB aggregation pipelines for features like the user channel profile, which calculates subscriber counts and subscription status in a single query.
-* **Asynchronous File Handling:** Managing the flow of file uploads from the client, temporarily storing them on the server, and then uploading them to a cloud service like Cloudinary required careful handling of asynchronous operations and error management.
+* `GET /api/v1/users/c/:username` - Get the public profile of a user's channel.
+    * **Authorization:** Bearer Token (optional, to check subscription status)
