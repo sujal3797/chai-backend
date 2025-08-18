@@ -1,4 +1,4 @@
-# Chai & Backend - A Full-Stack Video Platform API
+# VideoTube - A Video Platform API
 
 ![NodeJS](https://img.shields.io/badge/Node.js-18.x-green.svg) ![Express.js](https://img.shields.io/badge/Express.js-5.x-blue.svg) ![MongoDB](https://img.shields.io/badge/MongoDB-6.x-green.svg) ![JWT](https://img.shields.io/badge/Auth-JWT-orange.svg)
 
