@@ -1,49 +1,48 @@
-# Chai and Backend
+# Chai and Backend - A Video Platform API
 
-This is a video series on backend with javascript.
+A fully-featured backend service for a YouTube-like platform, providing RESTful APIs for user management, video uploads, and subscriptions. This project was built to demonstrate a modern backend architecture using Node.js, Express, and MongoDB.
 
-## Project Description
+![NodeJS](https://img.shields.io/badge/Node.js-18.x-green.svg) ![Express.js](https://img.shields.io/badge/Express.js-4.x-blue.svg) ![MongoDB](https://img.shields.io/badge/MongoDB-6.x-green.svg) ![JWT](https://img.shields.io/badge/Auth-JWT-orange.svg)
 
-This project is a backend for a video platform, likely called "videotube". It includes user authentication, video management, and subscription features. The project is built with Node.js and Express, and uses MongoDB as its database.
+**[Live Demo Link (if available)](http://your-live-api-link.com)**
 
-## Features
+## Key Features
 
-* **User Authentication:**
-    * User registration and login
-    * JWT-based authentication
-    * Password encryption using bcrypt
-    * Access and refresh token generation
-    * Logout functionality
-* **User Profile:**
-    * Get current user details
-    * Update account details
-    * Update user avatar and cover image
-    * Get user channel profile
-* **Video Management:**
-    * Video model with details like video file, thumbnail, title, description, duration, views, and owner
-* **Subscription:**
-    * Subscription model to manage user subscriptions to channels
+* **JWT Authentication:** Secure user registration and login with access and refresh tokens.
+* **File Uploads:** Handles multipart/form-data for uploading user avatars, cover images, and video files using `multer`.
+* **Cloud Integration:** Seamlessly uploads media files to Cloudinary for scalable storage.
+* **MongoDB Aggregation Pipelines:** Complex queries for user channel profiles and subscription data.
+* **Standardized API Responses:** Consistent and predictable API response structure (`ApiResponse`) and error handling (`ApiError`).
+
+## Tech Stack
+
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB with Mongoose
+* **Authentication:** JWT (JSON Web Tokens), bcrypt
+* **File Handling:** Multer, Cloudinary for cloud storage
+* **Development:** Nodemon, Prettier
 
 ## Getting Started
 
 ### Prerequisites
 
-* Node.js
+* Node.js (v18 or higher)
 * npm
-* MongoDB
+* MongoDB instance (local or cloud-based)
+* Cloudinary account
 
 ### Installation
 
 1.  Clone the repository:
     ```bash
-    git clone <repository-url>
+    git clone [https://your-repository-url.com/](https://your-repository-url.com/)
     ```
 2.  Install NPM packages:
     ```bash
     npm install
     ```
-3.  Create a `.env` file in the root directory and add the following environment variables:
-    ```
+3.  Create a `.env` file in the root directory and add the necessary environment variables:
+    ```env
     MONGODB_URI=<your_mongodb_uri>
     CORS_ORIGIN=*
     ACCESS_TOKEN_SECRET=<your_access_token_secret>
@@ -59,20 +58,29 @@ This project is a backend for a video platform, likely called "videotube". It in
     npm run dev
     ```
 
-## Dependencies
+## API Endpoints
 
-* [bcrypt](https://www.npmjs.com/package/bcrypt): Library to help you hash passwords.
-* [cloudinary](https://www.npmjs.com/package/cloudinary): Cloudinary SDK for Node.js.
-* [cookie-parser](https://www.npmjs.com/package/cookie-parser): Parse Cookie header and populate `req.cookies` with an object keyed by the cookie names.
-* [cors](https://www.npmjs.com/package/cors): Node.js CORS middleware.
-* [dotenv](https://www.npmjs.com/package/dotenv): Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`.
-* [express](https://www.npmjs.com/package/express): Fast, unopinionated, minimalist web framework for Node.js.
-* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): An implementation of JSON Web Tokens.
-* [mongoose](https://www.npmjs.com/package/mongoose): Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
-* [mongoose-aggregate-paginate-v2](https://www.npmjs.com/package/mongoose-aggregate-paginate-v2): A mongoose plugin to paginate aggregate queries.
-* [multer](https://www.npmjs.com/package/multer): Multer is a node.js middleware for handling `multipart/form-data`.
+Here are some of the key API endpoints available.
 
-## Dev Dependencies
+### User Routes
 
-* [nodemon](https://www.npmjs.com/package/nodemon): Nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-* [prettier](https://www.npmjs.com/package/prettier): Prettier is an opinionated code formatter.
+* `POST /api/v1/users/register` - Register a new user.
+    * **Body (multipart/form-data):** `username`, `email`, `password`, `fullName`, `avatar` (file), `coverImage` (file)
+* `POST /api/v1/users/login` - Log in a user.
+    * **Body (json):** `email` or `username`, `password`
+* `POST /api/v1/users/logout` - Log out the currently authenticated user (requires JWT token).
+* `GET /api/v1/users/current-user` - Get details of the currently logged-in user (requires JWT token).
+
+*(... you can add more endpoints here)*
+
+## Project Challenges & Key Learnings
+
+Building this project involved several challenges and learning opportunities:
+
+* **Authentication Flow:** Implementing a secure authentication system with both access and refresh tokens was a key challenge. This involved understanding JWT best practices, token expiry, and secure cookie storage.
+* **Complex Database Queries:** Designing efficient MongoDB aggregation pipelines for features like the user channel profile, which calculates subscriber counts and subscription status in a single query.
+* **Asynchronous File Handling:** Managing the flow of file uploads from the client, temporarily storing them on the server, and then uploading them to a cloud service like Cloudinary required careful handling of asynchronous operations and error management.
+
+## Contact
+
+Sujal Gupta - [Your Email/LinkedIn/Portfolio Link]
