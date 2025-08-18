@@ -261,7 +261,7 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
     }
 
     const user = await User.findByIdAndUpdate(
-        req.user?.user_id,
+        req.user?._id,
         {
             $set: {
                 fullName,
@@ -394,7 +394,7 @@ const getUserChannelProfile =  asyncHandler(async(req, res) => {
                 channelsSubscribedToCount: 1,
                 isSubscribed: 1,
                 avatar: 1,
-                converImage: 1,
+                coverImage: 1,
                 email: 1,
             }
         }
