@@ -71,8 +71,6 @@ Here are some of the key API endpoints available.
 * `POST /api/v1/users/logout` - Log out the currently authenticated user (requires JWT token).
 * `GET /api/v1/users/current-user` - Get details of the currently logged-in user (requires JWT token).
 
-*(... you can add more endpoints here)*
-
 ## Project Challenges & Key Learnings
 
 Building this project involved several challenges and learning opportunities:
@@ -80,7 +78,3 @@ Building this project involved several challenges and learning opportunities:
 * **Authentication Flow:** Implementing a secure authentication system with both access and refresh tokens was a key challenge. This involved understanding JWT best practices, token expiry, and secure cookie storage.
 * **Complex Database Queries:** Designing efficient MongoDB aggregation pipelines for features like the user channel profile, which calculates subscriber counts and subscription status in a single query.
 * **Asynchronous File Handling:** Managing the flow of file uploads from the client, temporarily storing them on the server, and then uploading them to a cloud service like Cloudinary required careful handling of asynchronous operations and error management.
-
-## Contact
-
-Sujal Gupta - [Your Email/LinkedIn/Portfolio Link]
